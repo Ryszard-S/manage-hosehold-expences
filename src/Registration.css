@@ -1,0 +1,33 @@
+
+.root{
+	-fx-font-family: "Roboto";
+	-fx-background-color: #204959;
+}
+
+.button{
+	-fx-font-family: "Roboto";
+	-fx-font-size: 14px;
+	-fx-background-color: linear-gradient(to right bottom, #EACFDE, #C278A1);
+	-fx-border-radius: 25px 0px;
+	-fx-background-radius: 25px 0px;
+}
+.button:hover{
+	-fx-text-fill: #ffffff;
+	-fx-background-color: linear-gradient(to right bottom, #B1A1AA, #73606B);
+	-fx-cursor: hand;
+}
+.label{
+	-fx-text-fill: #ffffff;
+	-fx-font-size: 20;
+}
+#lbl_register{
+	-fx-text-fill: pink;
+	-fx-font-size: 14;
+}
+.text-field{
+-fx-background-radius: 15px;
+}
+.password-field{
+-fx-background-radius: 15px;
+
+}

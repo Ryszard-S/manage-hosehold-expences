@@ -1,0 +1,52 @@
+/* Coolors Exported Palette - https://coolors.co/e3c0d3-95818d-576066-2c514c-122932 */
+
+/* CSS HEX */
+--thistle: #e3c0d3ff;
+--mountbatten-pink: #95818dff;
+--black-coral: #576066ff;
+--dark-slate-gray: #2c514cff;
+--gunmetal: #122932ff;
+
+/* CSS HSL */
+--thistle: hsla(327, 38%, 82%, 1);
+--mountbatten-pink: hsla(324, 9%, 55%, 1);
+--black-coral: hsla(204, 8%, 37%, 1);
+--dark-slate-gray: hsla(172, 30%, 25%, 1);
+--gunmetal: hsla(197, 47%, 13%, 1);
+
+/* SCSS HEX */
+$thistle: #e3c0d3ff;
+$mountbatten-pink: #95818dff;
+$black-coral: #576066ff;
+$dark-slate-gray: #2c514cff;
+$gunmetal: #122932ff;
+
+/* SCSS HSL */
+$thistle: hsla(327, 38%, 82%, 1);
+$mountbatten-pink: hsla(324, 9%, 55%, 1);
+$black-coral: hsla(204, 8%, 37%, 1);
+$dark-slate-gray: hsla(172, 30%, 25%, 1);
+$gunmetal: hsla(197, 47%, 13%, 1);
+
+/* SCSS RGB */
+$thistle: rgba(227, 192, 211, 1);
+$mountbatten-pink: rgba(149, 129, 141, 1);
+$black-coral: rgba(87, 96, 102, 1);
+$dark-slate-gray: rgba(44, 81, 76, 1);
+$gunmetal: rgba(18, 41, 50, 1);
+
+/* SCSS Gradient */
+$gradient-top: linear-gradient(0deg, #e3c0d3ff, #95818dff, #576066ff, #2c514cff, #122932ff);
+$gradient-right: linear-gradient(90deg, #e3c0d3ff, #95818dff, #576066ff, #2c514cff, #122932ff);
+$gradient-bottom: linear-gradient(180deg, #e3c0d3ff, #95818dff, #576066ff, #2c514cff, #122932ff);
+$gradient-left: linear-gradient(270deg, #e3c0d3ff, #95818dff, #576066ff, #2c514cff, #122932ff);
+$gradient-top-right: linear-gradient(45deg, #e3c0d3ff, #95818dff, #576066ff, #2c514cff, #122932ff);
+$gradient-bottom-right: linear-gradient(135deg, #e3c0d3ff, #95818dff, #576066ff, #2c514cff, #122932ff);
+$gradient-top-left: linear-gradient(225deg, #e3c0d3ff, #95818dff, #576066ff, #2c514cff, #122932ff);
+$gradient-bottom-left: linear-gradient(315deg, #e3c0d3ff, #95818dff, #576066ff, #2c514cff, #122932ff);
+$gradient-radial: radial-gradient(#e3c0d3ff, #95818dff, #576066ff, #2c514cff, #122932ff);
+
+
+
+
+contibution: https://www.flaticon.com/packs/planning-and-organization-calendars-2

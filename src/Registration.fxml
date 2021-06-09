@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="371.0" prefWidth="262.0" stylesheets="@Registration.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Registration_controller">
+   <children>
+      <Label fx:id="lbl_register" layoutX="50.0" layoutY="195.0" prefHeight="97.0" prefWidth="149.0" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="btn_register" layoutX="78.0" layoutY="292.0" mnemonicParsing="false" onAction="#register" prefHeight="46.0" prefWidth="94.0" text="Zarejestruj" />
+      <TextField fx:id="txt_imie" layoutX="50.0" layoutY="40.0" prefHeight="31.0" prefWidth="149.0" promptText="Imie" />
+      <TextField fx:id="txt_nick" layoutX="50.0" layoutY="94.0" prefHeight="31.0" prefWidth="149.0" promptText="Nick" />
+      <PasswordField fx:id="txt_password" layoutX="50.0" layoutY="147.0" prefHeight="31.0" prefWidth="149.0" promptText="hasło" />
+   </children>
+</AnchorPane>
