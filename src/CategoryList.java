@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class CategoryList {
     public static ArrayList <String> CategoryList() {
-        ArrayList <String> kat = new ArrayList<String>();
+        ArrayList <String> kat = new ArrayList<>();
         try {
             ResultSet result1 = null;
             result1 = QueryExecutor.executeSelect("SELECT * FROM kategorie");

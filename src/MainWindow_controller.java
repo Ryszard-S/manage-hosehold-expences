@@ -46,7 +46,7 @@ public class MainWindow_controller implements Initializable {
     private TextField txt_kwota;
 
     @FXML
-    private ChoiceBox<Category> cBox_kategoria;
+    private ChoiceBox<String> cBox_kategoria;
 
     @FXML
     private BarChart<?, ?> barchart;
@@ -58,10 +58,6 @@ public class MainWindow_controller implements Initializable {
     private DatePicker date_to;
 
     @FXML
-    private Button btn_tableDate;
-
-
-    @FXML
     private Label lbl_welcome;
 
     @FXML
@@ -69,12 +65,6 @@ public class MainWindow_controller implements Initializable {
 
     @FXML
     private TableColumn<Category, String> col_kategoria1;
-
-    @FXML
-    private Button btn_add1;
-
-    @FXML
-    private Button btn_delete1;
 
     @FXML
     private Label lbl_welcome1;
@@ -87,6 +77,7 @@ public class MainWindow_controller implements Initializable {
 
     ObservableList<Transaction> list = FXCollections.observableArrayList();
     ObservableList<Category> category_list = FXCollections.observableArrayList();
+    ObservableList<String> category_list_box = FXCollections.observableArrayList(CategoryList.CategoryList());
 
     Date dateFrom;
     Date dateTo;
@@ -120,12 +111,14 @@ public class MainWindow_controller implements Initializable {
             category_list.add(new Category(x));
         }
 
-
-
         table_update();
         table_update_category();
-
-        cBox_kategoria.setItems(category_list);
+        cBox_update();
+        try {
+            chart();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         LocalDate ld = LocalDate.now();
         txt_data.setValue(ld);
@@ -136,8 +129,6 @@ public class MainWindow_controller implements Initializable {
     }
 
     public void show() {
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(""));
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
@@ -179,6 +170,11 @@ public class MainWindow_controller implements Initializable {
         table_Category.setItems(category_list);
     }
 
+    private void cBox_update(){
+        //category_list_box.clear();
+        cBox_kategoria.setItems(category_list_box);
+    }
+
     @FXML
     public void Add(ActionEvent actionEvent) {
         String data =  txt_data.getValue().toString();
@@ -190,7 +186,7 @@ public class MainWindow_controller implements Initializable {
             kwota = new BigDecimal(doubleKwota).setScale(2, RoundingMode.DOWN);
             System.out.println(kwota);
 
-            Category kategoria = cBox_kategoria.getValue();
+            String kategoria = cBox_kategoria.getValue();
 
             if (data != null && kwota != BigDecimal.ZERO && kategoria != null) {
                 System.out.println(data);
@@ -224,10 +220,8 @@ public class MainWindow_controller implements Initializable {
         int i = table.getSelectionModel().getSelectedItem().getTranzakcja_Id();
         try {
             QueryExecutor.executeQuery("DELETE FROM tranzakcje WHERE tranzakcja_ID = '"+i+"'");
-            //lbl_register.setText("Użytkownik dodany do bazy danych");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            //lbl_register.setText("Użytkownik o podanym nicku juz istnieje. Spróbuj ponownie.");
         }
         list.remove(index);
         table_update();
@@ -235,18 +229,19 @@ public class MainWindow_controller implements Initializable {
 
 
     // Add new category to SQL based
+
+    // SQL question INSERT INTO kategorie (kategoria) VALUES ('nowa')
+
     @FXML
-    void newCategory(ActionEvent event){
-// SQL question INSERT INTO kategorie (kategoria) VALUES ('nowa')
-    }
-    @FXML
-    void btn_add1(ActionEvent e){
+    void addCategory(ActionEvent e){
         String newCategory = txt_Category.getText();
         if (newCategory != null)
             try {
             QueryExecutor.executeQuery("INSERT INTO kategorie (kategoria) VALUES ('"+newCategory+"')");
             category_list.add(new Category(newCategory));
+            category_list_box.add(newCategory);
             table_update_category();
+            cBox_update();
              } catch (SQLException throwables) {
             throwables.printStackTrace();
              }
@@ -257,20 +252,35 @@ public class MainWindow_controller implements Initializable {
     }
 
     @FXML
+    void deleteCategory(){
+        int index = table_Category.getSelectionModel().selectedIndexProperty().get();
+        String i = table_Category.getSelectionModel().getSelectedItem().getCategoryName();
+        try {
+            QueryExecutor.executeQuery("DELETE FROM kategorie WHERE kategoria = '"+i+"'");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        category_list.remove(index);
+        table_update_category();
+    }
+
+    @FXML
     void chart() throws SQLException {
         barchart.getData().clear();
         XYChart.Series dataSeries1 = new XYChart.Series();
 
-        for(Object x : CategoryList.CategoryList()){
-            dataSeries1.getData().add(new XYChart.Data(x, sum_category((String) x)));
+        for(String x : CategoryList.CategoryList()){
+            dataSeries1.getData().add(new XYChart.Data(x, sum_category(x)));
         }
         barchart.getData().add(dataSeries1);
 
         // sql question: SELECT sum(kwota) FROM `tranzakcje` WHERE user_ID =2 AND kategoria = 'papierosy'
     }
 
+
+    // sql choose date: SELECT * FROM `tranzakcje` WHERE `data` BETWEEN "2021-06-01" AND "2021-06-06"
     @FXML
-    void table_date(ActionEvent event){
+    void table_date(ActionEvent actionEvent){
         list.clear();
         dateFrom1=date_from.getValue();
         dateTo1=date_to.getValue();
@@ -286,10 +296,4 @@ public class MainWindow_controller implements Initializable {
         }
         table_update();
     }
-
-
-
-
-
-    // sql wybieranie dat SELECT * FROM `tranzakcje` WHERE `data` BETWEEN "2021-06-01" AND "2021-06-06"
 }

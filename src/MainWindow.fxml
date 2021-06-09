@@ -63,15 +63,15 @@
          <content>
             <AnchorPane prefHeight="600.0" prefWidth="1000.0">
                <children>
-                  <TableView fx:id="table_Category" editable="true" layoutX="338.0" layoutY="14.0" prefHeight="400.0" prefWidth="400.0" stylesheets="@MainWindow.css">
+                  <TableView fx:id="table_Category" editable="true" layoutX="300.0" layoutY="14.0" prefHeight="400.0" prefWidth="400.0" stylesheets="@MainWindow.css">
                      <columns>
                         <TableColumn fx:id="col_kategoria1" prefWidth="363.0" text="kategoria" />
                      </columns>
                   </TableView>
-                  <Button fx:id="btn_add1" layoutX="658.0" layoutY="528.0" mnemonicParsing="false" onAction="#btn_add1" prefHeight="40.0" prefWidth="80.0" text="Dodaj" />
-                  <Button fx:id="btn_delete1" layoutX="338.0" layoutY="528.0" mnemonicParsing="false" onAction="#delete" prefHeight="40.0" prefWidth="80.0" text="Usuń" />
+                  <Button fx:id="btn_add1" layoutX="588.0" layoutY="528.0" mnemonicParsing="false" onAction="#addCategory" prefHeight="40.0" prefWidth="80.0" text="Dodaj" />
+                  <Button fx:id="btn_delete1" layoutX="333.0" layoutY="528.0" mnemonicParsing="false" onAction="#deleteCategory" prefHeight="40.0" prefWidth="80.0" text="Usuń" />
                   <Label fx:id="lbl_welcome1" layoutX="367.0" layoutY="414.0" prefHeight="30.0" prefWidth="343.0" text="Wprowadź nazwę kategorii: " />
-                  <TextField fx:id="txt_Category" layoutX="367.0" layoutY="466.0" prefHeight="25.0" prefWidth="335.0" />
+                  <TextField fx:id="txt_Category" layoutX="333.0" layoutY="460.0" prefHeight="25.0" prefWidth="335.0" />
                </children>
             </AnchorPane>
          </content>
