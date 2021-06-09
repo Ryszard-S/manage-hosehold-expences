@@ -42,7 +42,4 @@ public class Transaction {
     public void setKategoria(String kategoria) {
         this.kategoria = kategoria;
     }
-
-
-
 }

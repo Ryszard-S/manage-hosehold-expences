@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CategoryList {
-    public static ArrayList  CategoryList() {
-        ArrayList<String> kat = new ArrayList<>();
+    public static ArrayList <String> CategoryList() {
+        ArrayList <String> kat = new ArrayList<String>();
         try {
             ResultSet result1 = null;
             result1 = QueryExecutor.executeSelect("SELECT * FROM kategorie");

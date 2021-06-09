@@ -7,15 +7,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -25,7 +21,6 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Formatter;
 import java.util.ResourceBundle;
 
 public class MainWindow_controller implements Initializable {
@@ -51,7 +46,7 @@ public class MainWindow_controller implements Initializable {
     private TextField txt_kwota;
 
     @FXML
-    private ChoiceBox<String> cBox_kategoria;
+    private ChoiceBox<Category> cBox_kategoria;
 
     @FXML
     private BarChart<?, ?> barchart;
@@ -65,12 +60,33 @@ public class MainWindow_controller implements Initializable {
     @FXML
     private Button btn_tableDate;
 
+
     @FXML
     private Label lbl_welcome;
 
+    @FXML
+    private TableView<Category> table_Category;
+
+    @FXML
+    private TableColumn<Category, String> col_kategoria1;
+
+    @FXML
+    private Button btn_add1;
+
+    @FXML
+    private Button btn_delete1;
+
+    @FXML
+    private Label lbl_welcome1;
+
+    @FXML
+    private TextField txt_Category;
+
+
+
 
     ObservableList<Transaction> list = FXCollections.observableArrayList();
-    ObservableList<String> kat = FXCollections.observableArrayList(CategoryList.CategoryList());
+    ObservableList<Category> category_list = FXCollections.observableArrayList();
 
     Date dateFrom;
     Date dateTo;
@@ -78,22 +94,17 @@ public class MainWindow_controller implements Initializable {
     LocalDate dateFrom1;
     LocalDate dateTo1;
 
-    Formatter formatterKwota;
-
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         try {
-            ResultSet result = QueryExecutor.executeSelect("SELECT MIN(data), MAX(data)FROM tranzakcje WHERE user_ID='"+User.getUserID()+"'");
+            ResultSet result = QueryExecutor.executeSelect("SELECT MIN(data), MAX(data) FROM tranzakcje WHERE user_ID='"+User.getUserID()+"'");
             result.next();
             dateFrom=result.getDate(1);
             dateTo=result.getDate(2);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
 
         try {
             ResultSet result = QueryExecutor.executeSelect("SELECT * FROM tranzakcje WHERE user_ID='" + User.getUserID() + "'");
@@ -104,17 +115,23 @@ public class MainWindow_controller implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        table_update();
 
-        cBox_kategoria.setItems(kat);
+        for (String x : CategoryList.CategoryList()) {
+            category_list.add(new Category(x));
+        }
+
+
+
+        table_update();
+        table_update_category();
+
+        cBox_kategoria.setItems(category_list);
 
         LocalDate ld = LocalDate.now();
         txt_data.setValue(ld);
 
         date_from.setValue(dateFrom.toLocalDate());
         date_to.setValue(dateTo.toLocalDate());
-        System.out.println(dateFrom+" "+dateTo);
-
         lbl_welcome.setText("Witaj, "+User.getUserName());
     }
 
@@ -128,7 +145,6 @@ public class MainWindow_controller implements Initializable {
             e.printStackTrace();
         }
         Stage stage = new Stage();
-        //stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Expenses");
         Scene scene = new Scene(root);
         scene.getStylesheets().add("MainWindow.css");
@@ -158,6 +174,11 @@ public class MainWindow_controller implements Initializable {
         table.setItems(list);
     }
 
+    private  void table_update_category(){
+        col_kategoria1.setCellValueFactory(new PropertyValueFactory<>("categoryName"));
+        table_Category.setItems(category_list);
+    }
+
     @FXML
     public void Add(ActionEvent actionEvent) {
         String data =  txt_data.getValue().toString();
@@ -169,7 +190,7 @@ public class MainWindow_controller implements Initializable {
             kwota = new BigDecimal(doubleKwota).setScale(2, RoundingMode.DOWN);
             System.out.println(kwota);
 
-            String kategoria = cBox_kategoria.getValue();
+            Category kategoria = cBox_kategoria.getValue();
 
             if (data != null && kwota != BigDecimal.ZERO && kategoria != null) {
                 System.out.println(data);
@@ -212,16 +233,37 @@ public class MainWindow_controller implements Initializable {
         table_update();
     }
 
+
+    // Add new category to SQL based
+    @FXML
+    void newCategory(ActionEvent event){
+// SQL question INSERT INTO kategorie (kategoria) VALUES ('nowa')
+    }
+    @FXML
+    void btn_add1(ActionEvent e){
+        String newCategory = txt_Category.getText();
+        if (newCategory != null)
+            try {
+            QueryExecutor.executeQuery("INSERT INTO kategorie (kategoria) VALUES ('"+newCategory+"')");
+            category_list.add(new Category(newCategory));
+            table_update_category();
+             } catch (SQLException throwables) {
+            throwables.printStackTrace();
+             }
+
+        else{
+            lbl_welcome1.setText("Brak kategorii");
+        }
+    }
+
     @FXML
     void chart() throws SQLException {
-
-        XYChart.Series dataSeries1 = new XYChart.Series();
         barchart.getData().clear();
+        XYChart.Series dataSeries1 = new XYChart.Series();
 
         for(Object x : CategoryList.CategoryList()){
             dataSeries1.getData().add(new XYChart.Data(x, sum_category((String) x)));
         }
-
         barchart.getData().add(dataSeries1);
 
         // sql question: SELECT sum(kwota) FROM `tranzakcje` WHERE user_ID =2 AND kategoria = 'papierosy'

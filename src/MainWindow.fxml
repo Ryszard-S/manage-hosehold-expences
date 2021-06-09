@@ -29,15 +29,16 @@
                     </columns>
                   </TableView>
                   <DatePicker fx:id="txt_data" layoutX="338.0" layoutY="493.0" prefHeight="25.0" prefWidth="160.0" promptText="data" showWeekNumbers="true" />
-                  <Button fx:id="btn_add" layoutX="727.0" layoutY="540.0" mnemonicParsing="false" onAction="#Add" prefHeight="40.0" prefWidth="80.0" text="Dodaj" />
+                  <Button fx:id="btn_add" layoutX="842.0" layoutY="540.0" mnemonicParsing="false" onAction="#Add" prefHeight="40.0" prefWidth="80.0" text="Dodaj" />
                   <TextField fx:id="txt_kwota" layoutX="571.0" layoutY="493.0" prefHeight="25.0" prefWidth="160.0" promptText="0.00" />
                   <ChoiceBox fx:id="cBox_kategoria" layoutX="802.0" layoutY="493.0" prefHeight="25.0" prefWidth="160.0" />
-                  <Button fx:id="btn_delete" layoutX="500.0" layoutY="544.0" mnemonicParsing="false" onAction="#delete" prefHeight="40.0" prefWidth="80.0" text="Delete" />
+                  <Button fx:id="btn_delete" layoutX="605.0" layoutY="540.0" mnemonicParsing="false" onAction="#delete" prefHeight="40.0" prefWidth="80.0" text="Usuń" />
                   <DatePicker fx:id="date_from" layoutX="24.0" layoutY="104.0" />
                   <DatePicker fx:id="date_to" layoutX="24.0" layoutY="158.0" />
                   <Label layoutX="58.0" layoutY="70.0" prefHeight="17.0" prefWidth="127.0" text="Wybierz zakres dat:" />
                   <Button fx:id="btn_tableDate" layoutX="62.0" layoutY="215.0" mnemonicParsing="false" onAction="#table_date" prefHeight="40.0" prefWidth="80.0" text="Pokaż" />
                   <Label fx:id="lbl_welcome" layoutX="24.0" layoutY="14.0" prefHeight="30.0" prefWidth="343.0" />
+                  <Button fx:id="btn_newCategory" layoutX="342.0" layoutY="540.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="152.0" text="Nowa kategoria" />
                </children>
             </AnchorPane>
          </content>
@@ -57,6 +58,23 @@
                </children>
             </AnchorPane>
         </content>
+      </Tab>
+      <Tab closable="false" text="Kategorie">
+         <content>
+            <AnchorPane prefHeight="600.0" prefWidth="1000.0">
+               <children>
+                  <TableView fx:id="table_Category" editable="true" layoutX="338.0" layoutY="14.0" prefHeight="400.0" prefWidth="400.0" stylesheets="@MainWindow.css">
+                     <columns>
+                        <TableColumn fx:id="col_kategoria1" prefWidth="363.0" text="kategoria" />
+                     </columns>
+                  </TableView>
+                  <Button fx:id="btn_add1" layoutX="658.0" layoutY="528.0" mnemonicParsing="false" onAction="#btn_add1" prefHeight="40.0" prefWidth="80.0" text="Dodaj" />
+                  <Button fx:id="btn_delete1" layoutX="338.0" layoutY="528.0" mnemonicParsing="false" onAction="#delete" prefHeight="40.0" prefWidth="80.0" text="Usuń" />
+                  <Label fx:id="lbl_welcome1" layoutX="367.0" layoutY="414.0" prefHeight="30.0" prefWidth="343.0" text="Wprowadź nazwę kategorii: " />
+                  <TextField fx:id="txt_Category" layoutX="367.0" layoutY="466.0" prefHeight="25.0" prefWidth="335.0" />
+               </children>
+            </AnchorPane>
+         </content>
       </Tab>
    </tabs>
 </TabPane>
